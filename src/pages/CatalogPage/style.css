@@ -1,0 +1,43 @@
+/* ОБЩИЙ КОНТЕЙНЕР */
+.catalog {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ПОИСК */
+.catalog__search {
+  margin-bottom: 20px;
+}
+
+.catalog__search input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* ОСНОВНОЙ ЛЕЙАУТ */
+.catalog__layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* ФИЛЬТРЫ СЛЕВА */
+.catalog__filters {
+  width: 250px;
+  flex-shrink: 0;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+/* ТОВАРЫ СПРАВА */
+.catalog__products {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}

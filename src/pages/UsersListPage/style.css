@@ -1,0 +1,56 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.users__title {
+  margin: 0;
+}
+
+/* TABLE */
+.users__table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ROW */
+.users__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.users__row:last-child {
+  border-bottom: none;
+}
+
+/* HEADER ROW */
+.users__row--head {
+  background: #f5f5f5;
+  font-weight: bold;
+}
+
+/* STATUS */
+.users__status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  width: fit-content;
+}
+
+.users__status--active {
+  background: #e6f7e6;
+  color: #2e7d32;
+}
+
+.users__status--inactive {
+  background: #fdecea;
+  color: #c62828;
+}

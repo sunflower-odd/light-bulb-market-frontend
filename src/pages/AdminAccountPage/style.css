@@ -1,0 +1,49 @@
+.admin {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin__title {
+  margin: 0;
+}
+
+.admin__info {
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* кнопки */
+.admin__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+}
+
+.admin__button {
+  padding: 12px 15px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  background: #fff;
+  transition: 0.2s;
+}
+
+.admin__button:hover {
+  background: #333;
+  color: #fff;
+}
+
+.admin__button--danger {
+  border-color: #c62828;
+  color: #c62828;
+}
+
+.admin__button--danger:hover {
+  background: #c62828;
+  color: #fff;
+}

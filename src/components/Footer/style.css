@@ -1,0 +1,31 @@
+.footer {
+  margin-top: 40px;
+  padding: 30px 40px 20px;
+  background-color: #111;
+  color: #fff;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.footer__logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.footer__info {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.footer__bottom {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}

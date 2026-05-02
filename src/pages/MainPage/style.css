@@ -1,0 +1,51 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.main__hero {
+  padding: 40px;
+  background: #111;
+  color: #fff;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.main__title {
+  margin: 0;
+  font-size: 32px;
+}
+
+.main__text {
+  margin: 15px 0;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.main__button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 18px;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+/* CATALOG */
+.main__catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main__subtitle {
+  margin: 0;
+}
+
+.main__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}

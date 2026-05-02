@@ -1,0 +1,46 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart__title {
+  margin: 0;
+}
+
+.cart__empty {
+  font-size: 18px;
+  color: #777;
+}
+
+/* список товаров */
+.cart__list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* итог */
+.cart__summary {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart__button {
+  padding: 10px 15px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.cart__button:hover {
+  background: #333;
+}
