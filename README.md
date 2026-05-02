@@ -1,16 +1,63 @@
-# React + Vite
+# 💡 Интернет-магазин "Сияй!" (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend часть интернет-магазина лампочек, реализованная на React + Vite.
+Проект содержит основные страницы магазина, маршрутизацию и UI-компоненты.  
 
-Currently, two official plugins are available:
+Бэкенд отсутствует — используются моковые данные.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Технологии
 
-## React Compiler
+- React 18+
+- Vite
+- React Router DOM
+- JavaScript (ES6+)
+- CSS (без UI-фреймворков)
+- Мок-данные
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Структура проекта
 
-## Expanding the ESLint configuration
+## Основные страницы
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Главная (MainPage)
+- Каталог товаров (CatalogPage)
+- Карточка товара (ProductPage)
+- Корзина (CartPage)
+- Оформление заказа (CheckoutPage)
+- Промо-страницы (PromoListPage)
+- Личный кабинет пользователя
+- Кабинет сотрудника
+- Админ-панель
+- Управление пользователями
+- Страница логина
+
+## Маршрутизация
+
+Реализована через **React Router DOM (createBrowserRouter)**.
+
+Основные маршруты:
+
+- `/` — Главная
+- `/catalog` — Каталог
+- `/product/:id` — Товар
+- `/cart` — Корзина
+- `/checkout` — Оформление заказа
+- `/promo` — Промо
+- `/account` — Личный кабинет
+- `/admin` — Админка
+- `/admin/users` — Пользователи
+- `/login` — Логин
+
+## Данные
+
+Проект использует мок-данные:
+- список товаров
+- заказы пользователя
+- пользователи (для админки)
+
+Без подключения к backend API.
+
+## Установка и запуск
+
+```bash
+npm install
+npm run dev
