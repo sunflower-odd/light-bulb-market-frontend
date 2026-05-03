@@ -1,11 +1,11 @@
-/* ОБЩИЙ КОНТЕЙНЕР */
+/* контейнер общий */
 .catalog {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
 }
 
-/* ПОИСК */
+/* поиск */
 .catalog__search {
   margin-bottom: 20px;
 }
@@ -17,14 +17,14 @@
   box-sizing: border-box;
 }
 
-/* ОСНОВНОЙ ЛЕЙАУТ */
+/* основной layout */
 .catalog__layout {
   display: flex;
   gap: 20px;
   align-items: flex-start;
 }
 
-/* ФИЛЬТРЫ СЛЕВА */
+/* фильтры - расположены слева */
 .catalog__filters {
   width: 250px;
   flex-shrink: 0;
@@ -34,7 +34,7 @@
   background: #fafafa;
 }
 
-/* ТОВАРЫ СПРАВА */
+/* товары - расположены справа */
 .catalog__products {
   flex: 1;
   display: grid;

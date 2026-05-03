@@ -15,7 +15,7 @@ function CartItem({ item }) {
         </h3>
 
         <p className="cart-item__price">
-          {item.price} €
+          {item.price} ₽
         </p>
       </div>
 

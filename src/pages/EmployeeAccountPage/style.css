@@ -19,7 +19,7 @@
   margin: 10px 0;
 }
 
-/* TABLE */
+/* таблица */
 .account__table {
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@
   border-bottom: none;
 }
 
-/* STATUS */
+/* статус */
 .account__status {
   padding: 4px 10px;
   border-radius: 6px;

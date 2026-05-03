@@ -4,7 +4,7 @@
   padding: 20px 0;
 }
 
-/* LEFT */
+/* левая */
 .product__left {
   flex: 1;
 }
@@ -16,7 +16,7 @@
   background: #f5f5f5;
 }
 
-/* RIGHT */
+/* правая */
 .product__right {
   flex: 1;
   display: flex;

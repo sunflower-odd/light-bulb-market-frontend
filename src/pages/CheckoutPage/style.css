@@ -8,7 +8,7 @@
   margin: 0;
 }
 
-/* FORM */
+/* форма */
 .checkout__form {
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@
   border-radius: 6px;
 }
 
-/* ITEMS */
+/* товары */
 .checkout__items {
   padding: 20px;
   border: 1px solid #eee;
@@ -44,13 +44,13 @@
   border-bottom: none;
 }
 
-/* SUMMARY */
+/* саммари */
 .checkout__summary {
   font-size: 18px;
   font-weight: bold;
 }
 
-/* ACTIONS */
+/* действия */
 .checkout__actions {
   display: flex;
   gap: 15px;

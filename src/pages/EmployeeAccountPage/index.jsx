@@ -73,7 +73,7 @@ function UserAccountPage() {
             </div>
 
             <div>{order.items}</div>
-            <div>{order.total} €</div>
+            <div>{order.total} ₽</div>
 
           </div>
         ))}

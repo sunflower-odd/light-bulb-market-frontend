@@ -32,8 +32,9 @@ export const router = createBrowserRouter([
       // промо
       { path: "promo", element: <PromoListPage /> },
 
-
+      // страница ввода логина и пароля
       { path: "login", element: <LoginPage /> },
+
       // личный кабинет
       { path: "user_account", element: <ClientAccountPage /> },
 

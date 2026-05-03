@@ -21,7 +21,7 @@ function MainPage() {
   return (
     <div className="main">
 
-      {/* HERO / О МАГАЗИНЕ */}
+      {/* о магазине */}
       <section className="main__hero">
         <h1 className="main__title">
           Интернет-магазин «Сияй»
@@ -36,7 +36,7 @@ function MainPage() {
         </Link>
       </section>
 
-      {/* ПОПУЛЯРНЫЕ ТОВАРЫ */}
+      {/* товары */}
       <section className="main__catalog">
 
         <h2 className="main__subtitle">

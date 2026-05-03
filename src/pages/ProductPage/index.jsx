@@ -52,7 +52,7 @@ function ProductPage() {
         </h1>
 
         <p className="product__price">
-          {product.price} €
+          {product.price} ₽
         </p>
 
         <p className="product__description">

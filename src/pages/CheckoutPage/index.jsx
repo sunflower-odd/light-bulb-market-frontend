@@ -29,7 +29,7 @@ function CheckoutPage() {
         Оформление заказа
       </h1>
 
-      {/* ФОРМА */}
+      {/* форма */}
       <div className="checkout__form">
 
         <h2>Контактные данные</h2>
@@ -40,7 +40,7 @@ function CheckoutPage() {
 
       </div>
 
-      {/* ТОВАРЫ */}
+      {/* товары */}
       <div className="checkout__items">
 
         <h2>Ваш заказ</h2>
@@ -54,12 +54,12 @@ function CheckoutPage() {
 
       </div>
 
-      {/* ИТОГО */}
+      {/* итого */}
       <div className="checkout__summary">
         <h3>Итого: {total.toFixed(2)} ₽</h3>
       </div>
 
-      {/* КНОПКИ */}
+      {/* кнопки */}
       <div className="checkout__actions">
 
         <Link to="/success" className="checkout__button">

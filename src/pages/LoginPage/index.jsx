@@ -8,7 +8,7 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // пока просто заглушка (без backend)
+    // пока заглушка
     console.log("Login:", { email, password });
 
     alert("Вход выполнен (мок)");

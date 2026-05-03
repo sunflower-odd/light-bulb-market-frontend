@@ -35,7 +35,7 @@ function CatalogPage() {
   return (
     <div className="catalog">
 
-      {/* ПОИСК */}
+      {/* поиск */}
       <div className="catalog__search">
         <input
           type="text"
@@ -47,7 +47,7 @@ function CatalogPage() {
 
       <div className="catalog__layout">
 
-        {/* ФИЛЬТРЫ */}
+        {/* фильтры */}
         <aside className="catalog__filters">
           <h3>Фильтры</h3>
 
@@ -71,7 +71,7 @@ function CatalogPage() {
           </div>
         </aside>
 
-        {/* ТОВАРЫ */}
+        {/* товары */}
         <section className="catalog__products">
           {products
             .filter((p) =>
