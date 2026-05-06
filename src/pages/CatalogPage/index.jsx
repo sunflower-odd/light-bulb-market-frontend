@@ -1,22 +1,46 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../store/actions/productActions";
 import ProductCard from "../../components/ProductCard";
 import "./style.css";
 
 function CatalogPage() {
   const [search, setSearch] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  const dispatch = useDispatch();
-
-  // берём товары из Redux
-  const products = useSelector((state) => state.products.list);
-  console.log("CATALOG STATE:", products);
-  // загрузка товаров при открытии страницы
+  // 🔹 загрузка с фильтрами с backend
   useEffect(() => {
-    console.log(products);
-    dispatch(fetchProducts());
-  }, [dispatch]);
+    const url = new URL("http://localhost:8000/products");
+
+    if (search) url.searchParams.append("search", search);
+
+    if (selectedCategories.length === 1) {
+      url.searchParams.append("category_id", selectedCategories[0]);
+    }
+
+    if (maxPrice) {
+      url.searchParams.append("max_price", maxPrice);
+    }
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error(err));
+  }, [search, selectedCategories, maxPrice]);
+
+  // 🔹 категории
+  const handleCategoryChange = (categoryId) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
+
+  // 🔹 цена
+  const handlePriceChange = (value) => {
+    setMaxPrice(value);
+  };
 
   return (
     <div className="catalog">
@@ -35,37 +59,69 @@ function CatalogPage() {
 
         {/* фильтры */}
         <aside className="catalog__filters">
+
           <h3>Фильтры</h3>
 
           <div>
             <p>Категория</p>
-            <label><input type="checkbox" /> LED</label><br />
-            <label><input type="checkbox" /> Smart</label><br />
-            <label><input type="checkbox" /> Галогенная</label>
-          </div>
 
-          <div>
-            <p>Мощность</p>
-            <label><input type="checkbox" /> до 10W</label><br />
-            <label><input type="checkbox" /> 10–50W</label>
+            <label>
+              <input
+                type="checkbox"
+                onChange={() => handleCategoryChange(1)}
+              />
+              LED
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                onChange={() => handleCategoryChange(2)}
+              />
+              Smart
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                onChange={() => handleCategoryChange(3)}
+              />
+              Other
+            </label>
           </div>
 
           <div>
             <p>Цена</p>
-            <label><input type="checkbox" /> до 5₽</label><br />
-            <label><input type="checkbox" /> 5–15₽</label>
+
+            <label>
+              <input
+                type="radio"
+                name="price"
+                onChange={() => handlePriceChange(5)}
+              />
+              до 5₽
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="price"
+                onChange={() => handlePriceChange(15)}
+              />
+              до 15₽
+            </label>
           </div>
+
         </aside>
 
         {/* товары */}
         <section className="catalog__products">
-          {products
-            .filter((p) =>
-              p.title.toLowerCase().includes(search.toLowerCase())
-            )
-            .map((product) => (
-              <ProductCard key={product.product_id} product={product} />
-            ))}
+          {products.map((product) => (
+            <ProductCard
+              key={product.product_id}
+              product={product}
+            />
+          ))}
         </section>
 
       </div>
