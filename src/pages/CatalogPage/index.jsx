@@ -1,36 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../store/actions/productActions";
 import ProductCard from "../../components/ProductCard";
 import "./style.css";
 
-const products = [
-  {
-    id: 1,
-    title: "LED лампа E27 10W",
-    price: 3.99,
-    category: "LED",
-    power: 10,
-    image: "https://via.placeholder.com/300",
-  },
-  {
-    id: 2,
-    title: "Умная лампа WiFi",
-    price: 12.99,
-    category: "Smart",
-    power: 9,
-    image: "https://via.placeholder.com/300",
-  },
-  {
-    id: 3,
-    title: "Галогенная лампа",
-    price: 2.49,
-    category: "Галогенная",
-    power: 35,
-    image: "https://via.placeholder.com/300",
-  },
-];
-
 function CatalogPage() {
   const [search, setSearch] = useState("");
+
+  const dispatch = useDispatch();
+
+  // берём товары из Redux
+  const products = useSelector((state) => state.products.list);
+
+  // загрузка товаров при открытии страницы
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
     <div className="catalog">
