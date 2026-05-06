@@ -1,33 +1,52 @@
-import {
-  ADD_TO_CART,
-  REMOVE_FROM_CART,
-  CLEAR_CART,
-} from "../actions/cartActions";
-
 const initialState = {
-  items: [],
+  items: [], // { product, qty }
 };
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_CART:
+
+    case "ADD_TO_CART": {
+      const product = action.payload;
+
+      const existing = state.items.find(
+        (item) => item.product.product_id === product.product_id
+      );
+
+      if (existing) {
+        return {
+          ...state,
+          items: state.items.map((item) =>
+            item.product.product_id === product.product_id
+              ? { ...item, qty: item.qty + 1 }
+              : item
+          ),
+        };
+      }
+
       return {
         ...state,
-        items: [...state.items, action.payload],
+        items: [...state.items, { product, qty: 1 }],
       };
+    }
 
-    case REMOVE_FROM_CART:
+    case "REMOVE_FROM_CART":
       return {
         ...state,
         items: state.items.filter(
-          (item) => item.id !== action.payload
+          (item) => item.product.product_id !== action.payload
         ),
       };
 
-    case CLEAR_CART:
+    case "DECREASE_QTY":
       return {
         ...state,
-        items: [],
+        items: state.items
+          .map((item) =>
+            item.product.product_id === action.payload
+              ? { ...item, qty: item.qty - 1 }
+              : item
+          )
+          .filter((item) => item.qty > 0),
       };
 
     default:

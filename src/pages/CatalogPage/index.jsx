@@ -11,9 +11,10 @@ function CatalogPage() {
 
   // берём товары из Redux
   const products = useSelector((state) => state.products.list);
-
+  console.log("CATALOG STATE:", products);
   // загрузка товаров при открытии страницы
   useEffect(() => {
+    console.log(products);
     dispatch(fetchProducts());
   }, [dispatch]);
 
@@ -63,7 +64,7 @@ function CatalogPage() {
               p.title.toLowerCase().includes(search.toLowerCase())
             )
             .map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.product_id} product={product} />
             ))}
         </section>
 

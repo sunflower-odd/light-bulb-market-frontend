@@ -1,23 +1,21 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
+import { fetchProducts } from "../../store/actions/productActions";
 import "./style.css";
 
-const products = [
-  {
-    id: 1,
-    title: "LED лампа E27 10W",
-    price: 3.99,
-    image: "https://via.placeholder.com/300",
-  },
-  {
-    id: 2,
-    title: "Умная лампа WiFi",
-    price: 12.99,
-    image: "https://via.placeholder.com/300",
-  },
-];
-
 function MainPage() {
+  const dispatch = useDispatch();
+
+  const products = useSelector((state) => state.products.list);
+
+  useEffect(() => {
+    if (!products || products.length === 0) {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, products]);
+
   return (
     <div className="main">
 
@@ -36,7 +34,7 @@ function MainPage() {
         </Link>
       </section>
 
-      {/* товары */}
+      {/* ПОПУЛЯРНЫЕ ТОВАРЫ */}
       <section className="main__catalog">
 
         <h2 className="main__subtitle">
@@ -44,8 +42,8 @@ function MainPage() {
         </h2>
 
         <div className="main__grid">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {products?.slice(0, 4).map((product) => (
+            <ProductCard key={product.product_id} product={product} />
           ))}
         </div>
 
