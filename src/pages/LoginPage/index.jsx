@@ -23,7 +23,7 @@ function LoginPage() {
         return;
       }
 
-      // 💥 сохраняем токен
+      // сохраняем токен
       localStorage.setItem("token", data.access_token);
 
       alert("Вход выполнен");

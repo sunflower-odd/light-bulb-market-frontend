@@ -9,19 +9,19 @@ function CatalogPage() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const url = new URL("http://localhost:8000/products");
+    const url = new URL("http://localhost:8000/products/");
 
     if (search) url.searchParams.append("search", search);
 
-    if (selectedCategories.length === 1) {
-      url.searchParams.append("category_id", selectedCategories[0]);
-    }
+    selectedCategories.forEach((id) => {
+      url.searchParams.append("category_id", id);
+    });
 
     if (maxPrice) {
       url.searchParams.append("max_price", maxPrice);
     }
 
-    fetch(url)
+    fetch(url.toString())
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));

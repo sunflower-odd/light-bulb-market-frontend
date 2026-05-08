@@ -29,3 +29,9 @@
   border: 1px solid #333;
   border-radius: 6px;
 }
+
+.header__logout {
+  padding: 6px 12px;
+  border: 1px solid #333;
+  border-radius: 6px;
+}
