@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,12 +26,9 @@ function LoginPage() {
         return;
       }
 
-      // сохраняем токен
       localStorage.setItem("token", data.access_token);
 
-      alert("Вход выполнен");
-
-      console.log("TOKEN:", data.access_token);
+      navigate("/"); // 👈 редирект
 
     } catch (err) {
       console.error(err);
@@ -47,7 +47,6 @@ function LoginPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Введите email"
             required
           />
         </label>
@@ -58,14 +57,11 @@ function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Введите пароль"
             required
           />
         </label>
 
-        <button type="submit">
-          Войти
-        </button>
+        <button type="submit">Войти</button>
       </form>
     </div>
   );

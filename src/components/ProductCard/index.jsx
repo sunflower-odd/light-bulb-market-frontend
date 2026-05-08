@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import "./style.css";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/actions/cartActions";
 
-const DEFAULT_IMAGE =
-  "https://via.placeholder.com/300x200?text=No+Image";
+const DEFAULT_IMAGE = "https://via.placeholder.com/300x200?text=No+Image";
 
 function ProductCard({ product }) {
+  const dispatch = useDispatch();  
+
   return (
     <div className="product-card">
 
@@ -34,6 +37,13 @@ function ProductCard({ product }) {
         >
           Подробнее
         </Link>
+
+        <button
+          className="product-card__btn"
+          onClick={() => dispatch(addToCart(product))}
+        >
+          В корзину
+        </button>
 
       </div>
     </div>

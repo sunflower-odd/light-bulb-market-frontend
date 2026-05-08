@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, decreaseQty } from "../../store/actions/cartActions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../store/actions/cartActions";
+import { removeFromCart, decreaseQty, increaseQty } from "../../store/actions/cartActions";
 import "./style.css";
 
 function CartPage() {
@@ -147,23 +147,37 @@ function CartPage() {
             <p>Количество: {item.qty}</p>
           </div>
 
-          <div>
-            <button
-              onClick={() =>
-                dispatch(decreaseQty(item.product.product_id))
-              }
-            >
-              -
-            </button>
+        <div className="cart__controls">
 
-            <button
-              onClick={() =>
-                dispatch(removeFromCart(item.product.product_id))
-              }
-            >
-              удалить
-            </button>
-          </div>
+          <button
+            onClick={() =>
+              dispatch(decreaseQty(item.product.product_id))
+            }
+          >
+            -
+          </button>
+
+          <span className="cart__qty">
+            {item.qty}
+          </span>
+
+          <button
+            onClick={() =>
+              dispatch(increaseQty(item.product.product_id))
+            }
+          >
+            +
+          </button>
+
+          <button
+            onClick={() =>
+              dispatch(removeFromCart(item.product.product_id))
+            }
+          >
+            удалить
+          </button>
+
+        </div>
 
         </div>
       ))}

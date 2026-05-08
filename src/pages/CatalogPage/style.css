@@ -24,17 +24,51 @@
   align-items: flex-start;
 }
 
-/* фильтры - расположены слева */
+/* фильтры */
 .catalog__filters {
   width: 250px;
   flex-shrink: 0;
   padding: 15px;
+
   border: 1px solid #eee;
   border-radius: 8px;
   background: #fafafa;
 }
 
-/* товары - расположены справа */
+/* кнопка внутри фильтров */
+.catalog__filters button {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+
+  background-color: #f6f8fa;
+  color: #24292f;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.catalog__filters button:hover {
+  background-color: #eaeef2;
+  border-color: #b6c2cf;
+}
+
+.catalog__filters button:active {
+  transform: scale(0.98);
+}
+
+.catalog__filters button:focus {
+  outline: 2px solid #0969da;
+  outline-offset: 2px;
+}
+
+/* товары */
 .catalog__products {
   flex: 1;
   display: grid;

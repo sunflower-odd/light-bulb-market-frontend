@@ -94,3 +94,21 @@
   color: #777;
   font-size: 18px;
 }
+
+.cart__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart__controls button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+}
+
+.cart__qty {
+  min-width: 20px;
+  text-align: center;
+}

@@ -16,3 +16,8 @@ export const decreaseQty = (id) => ({
 export const clearCart = () => ({
   type: "CLEAR_CART"
 });
+
+export const increaseQty = (id) => ({
+  type: "INCREASE_QTY",
+  payload: id,
+});

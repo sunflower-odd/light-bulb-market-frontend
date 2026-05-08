@@ -5,19 +5,26 @@ import "./style.css";
 function CatalogPage() {
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const url = new URL("http://localhost:8000/products/");
 
-    if (search) url.searchParams.append("search", search);
+    if (search) {
+      url.searchParams.append("search", search);
+    }
 
     selectedCategories.forEach((id) => {
       url.searchParams.append("category_id", id);
     });
 
-    if (maxPrice) {
+    if (minPrice !== null) {
+      url.searchParams.append("min_price", minPrice);
+    }
+
+    if (maxPrice !== null) {
       url.searchParams.append("max_price", maxPrice);
     }
 
@@ -25,9 +32,8 @@ function CatalogPage() {
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
-  }, [search, selectedCategories, maxPrice]);
+  }, [search, selectedCategories, minPrice, maxPrice]);
 
-  // фильтрация по категории
   const handleCategoryChange = (categoryId) => {
     setSelectedCategories((prev) =>
       prev.includes(categoryId)
@@ -36,14 +42,16 @@ function CatalogPage() {
     );
   };
 
-  // фильтрация по цене
-  const handlePriceChange = (value) => {
-    setMaxPrice(value);
+  const resetFilters = () => {
+    setSearch("");
+    setSelectedCategories([]);
+    setMinPrice(null);
+    setMaxPrice(null);
   };
 
   return (
     <div className="catalog">
-      {/* поиск */}
+
       <div className="catalog__search">
         <input
           type="text"
@@ -55,10 +63,13 @@ function CatalogPage() {
 
       <div className="catalog__layout">
 
-        {/* фильтры */}
         <aside className="catalog__filters">
 
           <h3>Фильтры</h3>
+
+          <button onClick={resetFilters}>
+            Сбросить фильтры
+          </button>
 
           <div>
             <p>Категория</p>
@@ -66,6 +77,7 @@ function CatalogPage() {
             <label>
               <input
                 type="checkbox"
+                checked={selectedCategories.includes(1)}
                 onChange={() => handleCategoryChange(1)}
               />
               LED
@@ -74,6 +86,7 @@ function CatalogPage() {
             <label>
               <input
                 type="checkbox"
+                checked={selectedCategories.includes(2)}
                 onChange={() => handleCategoryChange(2)}
               />
               Smart
@@ -82,6 +95,7 @@ function CatalogPage() {
             <label>
               <input
                 type="checkbox"
+                checked={selectedCategories.includes(3)}
                 onChange={() => handleCategoryChange(3)}
               />
               Other
@@ -95,7 +109,11 @@ function CatalogPage() {
               <input
                 type="radio"
                 name="price"
-                onChange={() => handlePriceChange(5)}
+                checked={minPrice === null && maxPrice === 5}
+                onChange={() => {
+                  setMinPrice(null);
+                  setMaxPrice(5);
+                }}
               />
               до 5₽
             </label>
@@ -104,15 +122,32 @@ function CatalogPage() {
               <input
                 type="radio"
                 name="price"
-                onChange={() => handlePriceChange(15)}
+                checked={minPrice === 5 && maxPrice === 15}
+                onChange={() => {
+                  setMinPrice(5);
+                  setMaxPrice(15);
+                }}
               />
-              до 15₽
+              5–15₽
             </label>
+
+            <label>
+              <input
+                type="radio"
+                name="price"
+                checked={minPrice === 15 && maxPrice === null}
+                onChange={() => {
+                  setMinPrice(15);
+                  setMaxPrice(null);
+                }}
+              />
+              больше 15₽
+            </label>
+
           </div>
 
         </aside>
 
-        {/* товары */}
         <section className="catalog__products">
           {products.map((product) => (
             <ProductCard

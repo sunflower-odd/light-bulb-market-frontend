@@ -50,10 +50,13 @@ const cartReducer = (state = initialState, action) => {
     }
 
     case "CLEAR_CART":
+      saveToStorage([]);
+
       return {
         ...state,
         items: []
       };
+
 
     case "DECREASE_QTY": {
       const newItems = state.items
@@ -63,6 +66,21 @@ const cartReducer = (state = initialState, action) => {
             : item
         )
         .filter((item) => item.qty > 0);
+
+      saveToStorage(newItems);
+
+      return {
+        ...state,
+        items: newItems,
+      };
+    }
+
+    case "INCREASE_QTY": {
+      const newItems = state.items.map((item) =>
+        item.product.product_id === action.payload
+          ? { ...item, qty: item.qty + 1 }
+          : item
+      );
 
       saveToStorage(newItems);
 
