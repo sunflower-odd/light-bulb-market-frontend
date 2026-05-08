@@ -1,12 +1,20 @@
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 
-export const fetchProducts = () => {
-  const url = new URL("http://localhost:8000/products");
-  if (selectedCategory) url.searchParams.append("category_id", selectedCategory);
-  if (maxPrice) url.searchParams.append("max_price", maxPrice);
-  if (search) url.searchParams.append("search", search);
-
+export const fetchProducts = (filters = {}) => {
   return async (dispatch) => {
+    const url = new URL("http://localhost:8000/products");
+
+    const { selectedCategory, maxPrice, search } = filters;
+
+    if (selectedCategory)
+      url.searchParams.append("category_id", selectedCategory);
+
+    if (maxPrice)
+      url.searchParams.append("max_price", maxPrice);
+
+    if (search)
+      url.searchParams.append("search", search);
+
     const res = await fetch(url);
     const data = await res.json();
 

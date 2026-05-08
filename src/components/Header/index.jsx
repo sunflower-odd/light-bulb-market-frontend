@@ -14,6 +14,8 @@ function Header() {
         <Link to="/cart">Корзина</Link>
         <Link to="/promo">Промо</Link>
         <Link to="/login" className="header__btn">Вход</Link>
+        <Link to="/register">Регистрация</Link>
+        <Link to="/orders">Мои Заказы</Link>
       </nav>
     </header>
   );

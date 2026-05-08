@@ -1,24 +1,14 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-
-const cartItems = [
-  {
-    id: 1,
-    title: "LED лампа E27 10W",
-    price: 3.99,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    title: "Умная лампа WiFi",
-    price: 12.99,
-    quantity: 1,
-  },
-];
+import { useSelector } from "react-redux";
 
 function CheckoutPage() {
+
+  const cartItems = useSelector((state) => state.cart.items);
+
   const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) =>
+      sum + item.product.price * item.qty,
     0
   );
 
@@ -47,8 +37,8 @@ function CheckoutPage() {
 
         {cartItems.map((item) => (
           <div key={item.id} className="checkout__item">
-            <span>{item.title}</span>
-            <span>{item.quantity} × {item.price} ₽</span>
+            <span>{item.product.title}</span>
+            <span>{item.qty} × {item.product.price} ₽</span>
           </div>
         ))}
 

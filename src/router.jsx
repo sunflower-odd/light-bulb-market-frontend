@@ -15,6 +15,8 @@ import AdminAccountPage from "./pages/AdminAccountPage";
 import UsersListPage from "./pages/UsersListPage";
 import ClientAccountPage from "./pages/ClientAccountPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import OrdersPage from "./pages/OrdersPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,16 +34,19 @@ export const router = createBrowserRouter([
       // промо
       { path: "promo", element: <PromoListPage /> },
 
-      // страница ввода логина и пароля
+      // auth
       { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
 
-      // личный кабинет
+      // кабинет
       { path: "user_account", element: <ClientAccountPage /> },
 
-      // админка / сотрудник
+      // админ
       { path: "admin", element: <AdminAccountPage /> },
       { path: "employee_account", element: <EmployeeAccountPage /> },
       { path: "admin/users", element: <UsersListPage /> },
+
+      { path: "orders", element: <OrdersPage /> },
     ],
   },
 ]);

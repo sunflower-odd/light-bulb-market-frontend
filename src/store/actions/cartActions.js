@@ -12,3 +12,7 @@ export const decreaseQty = (id) => ({
   type: "DECREASE_QTY",
   payload: id,
 });
+
+export const clearCart = () => ({
+  type: "CLEAR_CART"
+});

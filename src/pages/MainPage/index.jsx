@@ -34,7 +34,7 @@ function MainPage() {
         </Link>
       </section>
 
-      {/* ПОПУЛЯРНЫЕ ТОВАРЫ */}
+      {/* популярные товары */}
       <section className="main__catalog">
 
         <h2 className="main__subtitle">

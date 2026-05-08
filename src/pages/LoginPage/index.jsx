@@ -5,13 +5,35 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // пока заглушка
-    console.log("Login:", { email, password });
+    try {
+      const res = await fetch(
+        `http://localhost:8001/auth/login?email=${email}`,
+        {
+          method: "POST",
+        }
+      );
 
-    alert("Вход выполнен (мок)");
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.detail || "Ошибка входа");
+        return;
+      }
+
+      // 💥 сохраняем токен
+      localStorage.setItem("token", data.access_token);
+
+      alert("Вход выполнен");
+
+      console.log("TOKEN:", data.access_token);
+
+    } catch (err) {
+      console.error(err);
+      alert("Ошибка сервера");
+    }
   };
 
   return (
@@ -41,7 +63,9 @@ function LoginPage() {
           />
         </label>
 
-        <button type="submit">Войти</button>
+        <button type="submit">
+          Войти
+        </button>
       </form>
     </div>
   );

@@ -8,7 +8,6 @@ function CatalogPage() {
   const [maxPrice, setMaxPrice] = useState(null);
   const [products, setProducts] = useState([]);
 
-  // 🔹 загрузка с фильтрами с backend
   useEffect(() => {
     const url = new URL("http://localhost:8000/products");
 
@@ -28,7 +27,7 @@ function CatalogPage() {
       .catch((err) => console.error(err));
   }, [search, selectedCategories, maxPrice]);
 
-  // 🔹 категории
+  // фильтрация по категории
   const handleCategoryChange = (categoryId) => {
     setSelectedCategories((prev) =>
       prev.includes(categoryId)
@@ -37,14 +36,13 @@ function CatalogPage() {
     );
   };
 
-  // 🔹 цена
+  // фильтрация по цене
   const handlePriceChange = (value) => {
     setMaxPrice(value);
   };
 
   return (
     <div className="catalog">
-
       {/* поиск */}
       <div className="catalog__search">
         <input

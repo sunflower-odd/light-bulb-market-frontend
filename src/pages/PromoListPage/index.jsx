@@ -1,31 +1,37 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-
-const promos = [
-  {
-    id: 1,
-    title: "Скидка 20% на LED лампы",
-    description: "Экономьте на освещении — LED лампы со скидкой весь месяц.",
-    discount: "−20%",
-    image: "https://via.placeholder.com/400",
-  },
-  {
-    id: 2,
-    title: "2 по цене 1 на умные лампы",
-    description: "Умные лампы с WiFi управлением — выгодный комплект.",
-    discount: "2=1",
-    image: "https://via.placeholder.com/400",
-  },
-  {
-    id: 3,
-    title: "Распродажа галогенных ламп",
-    description: "Остатки склада по сниженной цене.",
-    discount: "−30%",
-    image: "https://via.placeholder.com/400",
-  },
-];
+import { useEffect, useState } from "react";
 
 function PromoListPage() {
+  const [promos, setPromos] = useState([]);
+
+  useEffect(() => {
+    const loadPromos = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/promos");
+        const data = await res.json();
+
+        
+
+      const now = new Date();
+
+      const activePromos = data.filter((promo) => {
+        return (
+          new Date(promo.start_date) <= now &&
+          new Date(promo.end_date) >= now
+        );
+      });
+
+      setPromos(activePromos);
+        
+      } catch (e) {
+        console.error("Failed to load promos", e);
+      }
+    };
+
+    loadPromos();
+  }, []);
+
   return (
     <div className="promo">
 
@@ -33,17 +39,17 @@ function PromoListPage() {
 
       <div className="promo__grid">
         {promos.map((promo) => (
-          <div key={promo.id} className="promo__card">
+          <div key={promo.promo_id} className="promo__card">
 
             <img
-              src={promo.image}
+              src={promo.image || "https://via.placeholder.com/400"}
               alt={promo.title}
               className="promo__image"
             />
 
             <div className="promo__content">
               <span className="promo__badge">
-                {promo.discount}
+                -{promo.discount_percent}%
               </span>
 
               <h3 className="promo__card-title">
@@ -52,6 +58,11 @@ function PromoListPage() {
 
               <p className="promo__text">
                 {promo.description}
+              </p>
+
+              <p className="promo__dates">
+                {new Date(promo.start_date).toLocaleDateString()} —{" "}
+                {new Date(promo.end_date).toLocaleDateString()}
               </p>
 
               <Link to="/catalog" className="promo__button">

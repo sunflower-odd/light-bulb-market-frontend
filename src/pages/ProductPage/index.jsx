@@ -21,7 +21,6 @@ function ProductPage() {
     (p) => p.product_id === Number(id)
   );
 
-  // 👇 ВОТ ЭТО САМОЕ ВАЖНОЕ
   if (!product) {
     return <div className="product">Загрузка...</div>;
   }
@@ -29,7 +28,7 @@ function ProductPage() {
 return (
   <div className="product">
 
-    {/* КАРТИНКА */}
+    {/* будущая картинка */}
     <div className="product__image-wrapper">
       <img
         className="product__image"
@@ -38,7 +37,7 @@ return (
       />
     </div>
 
-    {/* ИНФО */}
+    {/* характеристики */}
     <div className="product__info">
 
       <h1 className="product__title">

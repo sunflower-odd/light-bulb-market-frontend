@@ -1,5 +1,9 @@
 const initialState = {
-  items: [], // { product, qty }
+  items: JSON.parse(localStorage.getItem("cart")) || [],
+};
+
+const saveToStorage = (items) => {
+  localStorage.setItem("cart", JSON.stringify(items));
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -12,42 +16,61 @@ const cartReducer = (state = initialState, action) => {
         (item) => item.product.product_id === product.product_id
       );
 
+      let newItems;
+
       if (existing) {
-        return {
-          ...state,
-          items: state.items.map((item) =>
-            item.product.product_id === product.product_id
-              ? { ...item, qty: item.qty + 1 }
-              : item
-          ),
-        };
+        newItems = state.items.map((item) =>
+          item.product.product_id === product.product_id
+            ? { ...item, qty: item.qty + 1 }
+            : item
+        );
+      } else {
+        newItems = [...state.items, { product, qty: 1 }];
       }
+
+      saveToStorage(newItems);
 
       return {
         ...state,
-        items: [...state.items, { product, qty: 1 }],
+        items: newItems,
       };
     }
 
-    case "REMOVE_FROM_CART":
+    case "REMOVE_FROM_CART": {
+      const newItems = state.items.filter(
+        (item) => item.product.product_id !== action.payload
+      );
+
+      saveToStorage(newItems);
+
       return {
         ...state,
-        items: state.items.filter(
-          (item) => item.product.product_id !== action.payload
-        ),
+        items: newItems,
+      };
+    }
+
+    case "CLEAR_CART":
+      return {
+        ...state,
+        items: []
       };
 
-    case "DECREASE_QTY":
+    case "DECREASE_QTY": {
+      const newItems = state.items
+        .map((item) =>
+          item.product.product_id === action.payload
+            ? { ...item, qty: item.qty - 1 }
+            : item
+        )
+        .filter((item) => item.qty > 0);
+
+      saveToStorage(newItems);
+
       return {
         ...state,
-        items: state.items
-          .map((item) =>
-            item.product.product_id === action.payload
-              ? { ...item, qty: item.qty - 1 }
-              : item
-          )
-          .filter((item) => item.qty > 0),
+        items: newItems,
       };
+    }
 
     default:
       return state;
