@@ -4,7 +4,7 @@ const initialState = {
   error: null
 };
 
-export const orderReducer = (state = initialState, action) => {
+const orderReducer = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -33,3 +33,5 @@ export const orderReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default orderReducer;

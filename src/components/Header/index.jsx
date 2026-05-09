@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import "./style.css";
+import { useState } from "react";
 
 function Header() {
 
+  const [isAuth, setIsAuth] = useState(
+    !!localStorage.getItem("token")
+  );
+
   const logout = () => {
     localStorage.removeItem("token");
+    setIsAuth(false);
     window.location.href = "/login";
   };
-
-  const isAuth = !!localStorage.getItem("token");
 
   return (
     <header className="header">
