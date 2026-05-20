@@ -2,15 +2,28 @@ import { useState, useEffect } from "react";
 import ProductCard from "../../components/ProductCard";
 import "./style.css";
 
+const API = "http://localhost:8004";
+
 function CatalogPage() {
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
-  const [products, setProducts] = useState([]);
 
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  // загрузка категорий
   useEffect(() => {
-    const url = new URL("http://localhost:8000/products/");
+    fetch(`${API}/categories`)
+      .then((res) => res.json())
+      .then((data) => setCategories(data))
+      .catch((err) => console.error("categories error:", err));
+  }, []);
+
+  // загрузка продуктов
+  useEffect(() => {
+    const url = new URL(`${API}/products`);
 
     if (search) {
       url.searchParams.append("search", search);
@@ -30,7 +43,7 @@ function CatalogPage() {
 
     fetch(url.toString())
       .then((res) => res.json())
-      .then((data) => setProducts(data))
+      .then((data) => setProducts(Array.isArray(data) ? data : []))
       .catch((err) => console.error(err));
   }, [search, selectedCategories, minPrice, maxPrice]);
 
@@ -71,35 +84,20 @@ function CatalogPage() {
             Сбросить фильтры
           </button>
 
+          {/* КАТЕГОРИИ ИЗ API */}
           <div>
-            <p>Категория</p>
+            <p>Категории</p>
 
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes(1)}
-                onChange={() => handleCategoryChange(1)}
-              />
-              LED
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes(2)}
-                onChange={() => handleCategoryChange(2)}
-              />
-              Smart
-            </label>
-
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes(3)}
-                onChange={() => handleCategoryChange(3)}
-              />
-              Other
-            </label>
+            {categories.map((cat) => (
+              <label key={cat.category_id}>
+                <input
+                  type="checkbox"
+                  checked={selectedCategories.includes(cat.category_id)}
+                  onChange={() => handleCategoryChange(cat.category_id)}
+                />
+                {cat.title}
+              </label>
+            ))}
           </div>
 
           <div>

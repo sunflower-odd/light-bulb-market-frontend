@@ -1,0 +1,12 @@
+.admin-orders {
+  padding: 20px;
+}
+
+.admin-orders__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./style.css";
 
-function RegisterPage() {
+const API = "http://localhost:8004"; // order_app (users)
 
+function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -13,18 +14,18 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:8001/users/", {
+      const res = await fetch(`${API}/users/`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name,
           email,
           phone,
           login,
-          password
-        })
+          password,
+        }),
       });
 
       const data = await res.json();
@@ -35,7 +36,6 @@ function RegisterPage() {
       }
 
       alert("Пользователь создан!");
-
     } catch (e) {
       console.error(e);
       alert("Ошибка сервера");
@@ -44,52 +44,17 @@ function RegisterPage() {
 
   return (
     <div className="register">
-
       <h1 className="register__title">Регистрация</h1>
 
       <form className="register__form" onSubmit={register}>
+        <input placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} />
+        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input placeholder="Телефон" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <input placeholder="Логин" value={login} onChange={(e) => setLogin(e.target.value)} />
+        <input placeholder="Пароль" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-        <input
-          type="text"
-          placeholder="Имя"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Телефон"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Логин"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
-        />
-
-        <input
-          type="password"
-          placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button type="submit">
-          Зарегистрироваться
-        </button>
-
+        <button type="submit">Зарегистрироваться</button>
       </form>
-
     </div>
   );
 }

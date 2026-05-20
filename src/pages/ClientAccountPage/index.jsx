@@ -11,7 +11,7 @@ function UserAccountPage() {
 
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8001/users/me", {
+      const res = await fetch("http://localhost:8004/me", {
         headers: {
           Authorization: `Bearer ${token}`
         }

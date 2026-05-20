@@ -9,12 +9,16 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        `http://localhost:8001/auth/login?email=${email}`,
-        {
-          method: "POST",
-        }
-      );
+      const res = await fetch("http://localhost:8004/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       const data = await res.json();
 
@@ -25,9 +29,12 @@ function LoginPage() {
 
       localStorage.setItem("token", data.access_token);
 
-      // Полная перезагрузка приложения
-      window.location.href = "/";
+      // желательно сохранить роль тоже
+      if (data.role) {
+        localStorage.setItem("role", data.role);
+      }
 
+      window.location.href = "/";
     } catch (err) {
       console.error(err);
       alert("Ошибка сервера");

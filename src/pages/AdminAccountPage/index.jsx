@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 
-const user = {
-  name: "Анна Смирнова",
-  role: "admin", // "employee" | "admin"
-};
-
 function AdminAccountPage() {
+
+  const token = localStorage.getItem("token");
+
+  let user = null;
+
+  if (token) {
+    try {
+      user = JSON.parse(atob(token.split(".")[1]));
+    } catch (e) {
+      console.error("Invalid token", e);
+    }
+  }
+
   return (
     <div className="admin">
 
@@ -15,25 +23,47 @@ function AdminAccountPage() {
       </h1>
 
       <div className="admin__info">
-        <p><b>Пользователь:</b> {user.name}</p>
-        <p><b>Роль:</b> {user.role === "admin" ? "Администратор" : "Сотрудник"}</p>
+
+        <p>
+          <b>Пользователь:</b> {user?.email}
+        </p>
+
+        <p>
+          <b>Роль:</b>{" "}
+          {user?.role === "admin"
+            ? "Администратор"
+            : "Сотрудник"}
+        </p>
+
       </div>
 
       <div className="admin__actions">
 
-        <Link to="/admin/products" className="admin__button">
-          Управление товарами (лампы)
-        </Link>
-
-        {user.role === "admin" && (
-          <Link to="/admin/users" className="admin__button admin__button--danger">
-            Управление пользователями
+        {user?.role === "admin" && (
+          <Link
+            to="/admin/products"
+            className="admin__button"
+          >
+            Управление товарами
           </Link>
         )}
 
-        <Link to="/admin/orders" className="admin__button">
+        <Link
+          to="/admin/orders"
+          className="admin__button"
+        >
           Управление заказами
         </Link>
+
+        <button
+          className="admin__button admin__button--danger"
+          onClick={() => {
+            localStorage.removeItem("token");
+            window.location.href = "/";
+          }}
+        >
+          Выйти
+        </button>
 
       </div>
 

@@ -1,0 +1,23 @@
+.admin-products {
+  padding: 20px;
+}
+
+.admin-products__form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-products__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-products__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
