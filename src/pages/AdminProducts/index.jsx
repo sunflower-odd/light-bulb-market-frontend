@@ -11,7 +11,7 @@ function AdminProducts() {
     category_id: "",
     image_url: "",
     price: "",
-    description: ""
+    description: "",
   });
 
   const token = localStorage.getItem("token");
@@ -21,32 +21,48 @@ function AdminProducts() {
     Authorization: `Bearer ${token}`,
   };
 
+  // =========================
+  // LOAD PRODUCTS
+  // =========================
   const loadProducts = async () => {
-    const res = await fetch(`${API}/products`);
-    const data = await res.json();
-    setProducts(data);
+    try {
+      const res = await fetch(`${API}/products`);
+      const data = await res.json();
+
+      console.log("PRODUCTS FROM API:", data);
+
+      setProducts(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error("LOAD PRODUCTS ERROR:", e);
+      setProducts([]);
+    }
   };
 
   useEffect(() => {
     loadProducts();
   }, []);
 
+  // =========================
+  // CREATE PRODUCT
+  // =========================
   const createProduct = async () => {
+    const payload = {
+      title: form.title,
+      category_id: Number(form.category_id),
+      image_url: form.image_url,
+      price: Number(form.price),
+      description: form.description,
+    };
+
     const res = await fetch(`${API}/products`, {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        title: form.title,
-        category_id: Number(form.category_id),
-        image_url: form.image_url,
-        price: Number(form.price),
-        description: form.description
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
       const err = await res.json();
-      console.log(err);
+      console.log("CREATE ERROR:", err);
       alert(err.detail || "Ошибка создания товара");
       return;
     }
@@ -56,35 +72,46 @@ function AdminProducts() {
       category_id: "",
       image_url: "",
       price: "",
-      description: ""
+      description: "",
     });
 
     loadProducts();
   };
 
-  const deleteProduct = async (id) => {
-    await fetch(`${API}/products/${id}`, {
-      method: "DELETE",
-      headers,
-    });
+  // =========================
+  // DELETE PRODUCT
+  // =========================
+const deleteProduct = async (productId) => {
+  console.log("DELETE ID:", productId);
 
-    loadProducts();
-  };
+  const res = await fetch(`${API}/products/${productId}`, {
+    method: "DELETE",
+    headers,
+  });
+
+  const text = await res.text(); // 👈 ВАЖНО
+
+  console.log("DELETE STATUS:", res.status);
+  console.log("DELETE RESPONSE:", text);
+
+  if (!res.ok) {
+    alert(`Ошибка удаления: ${res.status}`);
+    return;
+  }
+
+  loadProducts();
+};
 
   return (
     <div className="admin-products">
-
       <h1>Управление товарами</h1>
 
       {/* FORM */}
       <div className="admin-products__form">
-
         <input
           placeholder="Название"
           value={form.title}
-          onChange={(e) =>
-            setForm({ ...form, title: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
 
         <input
@@ -120,44 +147,40 @@ function AdminProducts() {
           }
         />
 
-        <button onClick={createProduct}>
-          Создать
-        </button>
-
+        <button onClick={createProduct}>Создать</button>
       </div>
 
       {/* LIST */}
       <div className="admin-products__list">
+        {products.map((p, index) => {
+          const id = p.product_id ?? p.id; // 🔥 защита от разных API
 
-        {products.map((p) => (
-            <div key={p.product_id} className="admin-products__item">
-
-            <div>
+          return (
+            <div key={id ?? index} className="admin-products__item">
+              <div>
                 <b>{p.title}</b>
 
-                <p><b>ID:</b> {p.product_id}</p>
+                <p><b>ID:</b> {id}</p>
                 <p><b>Категория:</b> {p.category_id}</p>
                 <p><b>Цена:</b> {p.price} ₽</p>
                 <p><b>Описание:</b> {p.description}</p>
 
                 {p.image_url && (
-                <img
+                  <img
                     src={p.image_url}
                     alt={p.title}
                     style={{ width: "80px", marginTop: "8px" }}
-                />
+                  />
                 )}
-            </div>
+              </div>
 
-            <button onClick={() => deleteProduct(p.product_id)}>
+              <button onClick={() => deleteProduct(id)}>
                 Удалить
-            </button>
-
+              </button>
             </div>
-        ))}
-
+          );
+        })}
       </div>
-
     </div>
   );
 }
