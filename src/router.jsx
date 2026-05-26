@@ -11,7 +11,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PromoListPage from "./pages/PromoListPage";
 
-import EmployeeAccountPage from "./pages/EmployeeAccountPage";
+//import EmployeeAccountPage from "./pages/EmployeeAccountPage";
 import UsersListPage from "./pages/UsersListPage";
 import ClientAccountPage from "./pages/ClientAccountPage";
 import LoginPage from "./pages/LoginPage";
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
       { path: "admin/products", element: <ProtectedRoute role="admin"><AdminProducts /></ProtectedRoute> },
       { path: "admin/orders", element: <ProtectedRoute role="admin"><AdminOrders /></ProtectedRoute> },
 
-      { path: "employee_account", element: <EmployeeAccountPage /> },
+      //{ path: "employee_account", element: <EmployeeAccountPage /> },
       { path: "admin/users", element: <UsersListPage /> },
 
       { path: "orders", element: <OrdersPage /> },
